@@ -1,0 +1,35 @@
+# Vivado outputs
+build/
+.Xil/
+*.jou
+*.log
+*.str
+*.backup.*
+vivado*.pid
+usage_statistics_webtalk.*
+webtalk*
+clockInfo.txt
+*.cache/
+*.hw/
+*.runs/
+*.sim/
+*.ip_user_files/
+
+# Simulation outputs
+sim/out/
+*.vvp
+*.vcd
+*.fst
+obj_dir/
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

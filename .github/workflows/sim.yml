@@ -1,0 +1,29 @@
+name: simulation
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install tools
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y iverilog verilator python3-pil
+      - name: Lint
+        run: iverilog -g2005 -Wall -o /tmp/lint rtl/*.v
+      - name: Trig ROM is up to date
+        run: |
+          python3 scripts/gen_trig_lut.py
+          git diff --exit-code rtl/trig_lut.v
+      - name: Self-checking tests
+        run: bash sim/run_sim.sh test
+      - name: Render a frame
+        run: bash sim/run_sim.sh
+      - uses: actions/upload-artifact@v4
+        with:
+          name: rendered-frame
+          path: sim/out/frame_0000.png
